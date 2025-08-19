@@ -40,9 +40,9 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ProductEntity updateProduct(@PathVariable Long id,
-                                 @RequestBody ProductEntity productDetails,
-                                 @RequestParam Long categoryId) {
+                                 @RequestBody ProductEntity productDetails) {
         ProductEntity product = productService.getProductById(id);
+        Long categoryId = product.getCategory().getId();
         CategoryEntity category = categoryRepository.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found"));
 
         product.setName(productDetails.getName());
